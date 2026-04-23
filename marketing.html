@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuliaSoft E-POS - Premium Dark Edition</title>
+    <style>
+        /* === DARK THEME VARIABLES === */
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-alt: #141414;
+            --bg-card: #1f1f1f;
+            --primary: #3b82f6; /* Blue Accent */
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #333333;
+            --success: #10b981;
+            --accent: #f59e0b; /* Gold/Orange Accent */
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { color: var(--text-main); background-color: var(--bg-main); line-height: 1.8; font-size: 1.05rem; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+        
+        /* === TYPOGRAPHY === */
+        h1, h2, h3, h4 { color: #ffffff; margin-bottom: 15px; font-weight: 600; }
+        p { color: var(--text-muted); margin-bottom: 15px; }
+        .highlight { color: var(--primary); font-weight: bold; }
+        
+        .section-title { 
+            text-align: center; 
+            font-size: 2.2rem; 
+            margin-bottom: 50px; 
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-wrapper { padding: 90px 0; border-bottom: 1px solid var(--border); }
+        .bg-alt { background-color: var(--bg-alt); }
+
+        /* === HERO SECTION === */
+        .hero { 
+            background: linear-gradient(180deg, #111827 0%, var(--bg-main) 100%); 
+            padding: 120px 0; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+        }
+        .hero h1 { font-size: 3.5rem; background: -webkit-linear-gradient(#60a5fa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;}
+        .hero p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 40px auto; color: var(--text-main); }
+        .btn { display: inline-block; padding: 15px 35px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px var(--primary-glow); }
+        .btn:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 20px var(--primary-glow); }
+
+        /* === LAYOUTS === */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+        /* === CARDS === */
+        .card { background: var(--bg-card); padding: 35px; border-radius: 15px; border: 1px solid var(--border); transition: 0.4s; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        img.placeholder { width: 100%; border-radius: 12px; opacity: 0.8; transition: 0.3s; border: 1px solid var(--border); }
+        img.placeholder:hover { opacity: 1; border-color: var(--primary); }
+        
+        /* === PRICING === */
+        .pricing-card { text-align: center; padding: 50px 25px; }
+        .pricing-card h3 { color: #ffffff; font-size: 1.5rem; }
+        .pricing-card .price { font-size: 2rem; font-weight: bold; margin: 25px 0; color: var(--primary); }
+        .pricing-card.featured { border: 2px solid var(--primary); background: linear-gradient(180deg, var(--bg-card) 0%, #172554 100%); transform: scale(1.05); }
+        .pricing-card.featured:hover { transform: scale(1.08); }
+        .badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; }
+
+        /* === TABLES === */
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: var(--bg-card); border-radius: 10px; overflow: hidden; }
+        th, td { padding: 18px; text-align: left; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        th { background-color: #1e3a8a; color: #ffffff; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: rgba(255,255,255,0.05); color: #ffffff; }
+
+        /* === LISTS & ELEMENTS === */
+        ul.custom-list { list-style: none; }
+        ul.custom-list li { position: relative; padding-left: 25px; margin-bottom: 15px; color: var(--text-muted); }
+        ul.custom-list li::before { content: '✓'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+
+        /* === FLOATING WA === */
+        .wa-btn { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; transition: 0.3s; }
+        .wa-btn:hover { transform: scale(1.1); }
+        
+        @media (max-width: 900px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>AuliaSoft E-POS</h1>
+            <p>Eksplorasi mendalam atas 12 Product Knowledge dari sistem kasir modern terintegrasi. Solusi digitalisasi bisnis cerdas, cepat, dan akurat persembahan dari #auliasoft.</p>
+            <a href="#pricing" class="btn">Lihat Penawaran Spesial</a>
+        </div>
+    </header>
+
+    <section id="pricing" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">A. Pricing Strategy</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">Kami merancang skema harga yang fleksibel untuk mendukung segala skala bisnis, dari UMKM pemula hingga perusahaan retail dengan banyak cabang. Investasi teknologi kini tidak lagi harus mahal.</p>
+            <div class="grid-4">
+                <div class="card pricing-card">
+                    <span class="badge">PROMO TERBATAS</span>
+                    <h3>Versi Promo</h3>
+                    <div class="price">Rp 50.000<small>/bln</small></div>
+                    <p>Sangat ideal bagi UMKM tahap awal yang baru beralih dari pencatatan manual. Menawarkan fitur kasir standar dengan keamanan data yang terjamin tanpa membebani modal awal usaha Anda.</p>
+                </div>
+                <div class="card pricing-card">
+                    <h3>Versi Basic</h3>
+                    <div class="price">Rp 149.999<small>/bln</small></div>
+                    <p>Paket inti yang dirancang untuk stabilitas operasional harian. Dilengkapi manajemen stok dasar dan rekapitulasi laporan harian yang dicetak secara otomatis di setiap akhir shift kerja.</p>
+                </div>
+                <div class="card pricing-card featured">
+                    <span class="badge" style="background: var(--primary); color: white;">BEST VALUE</span>
+                    <h3>Versi Standard</h3>
+                    <div class="price">Rp 349.999<small>/bln</small></div>
+                    <p>Solusi komprehensif bagi bisnis yang sedang berkembang pesat. Mendukung otorisasi multi-user, integrasi scanner barcode tingkat lanjut, serta sistem akuntansi untuk pencatatan hutang-piutang.</p>
+                </div>
+                <div class="card pricing-card">
+                    <h3>Versi Premium</h3>
+                    <div class="price">Rp 749.999<small>/bln</small></div>
+                    <p>Kendali penuh di tangan Anda. Mendapatkan akses tanpa batas ke seluruh analitik bisnis mendalam, kustomisasi dashboard eksklusif, serta prioritas utama dalam layanan dukungan teknis (VIP Support).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="brand-domain" class="section-wrapper bg-alt">
+        <div class="container grid-2">
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">B. Brand & Display Identity</h2>
+                <p>Merek <strong>AuliaSoft</strong> dibangun dengan filosofi profesionalisme, akurasi, dan kemudahan akses. Logo kami mencerminkan integrasi teknologi dengan kebutuhan ritel yang dinamis.</p>
+                <p>Dari segi *Display* (Antarmuka Pengguna), aplikasi kasir E-POS kami mengadopsi desain *Clean and Intuitive UI*. Tampilannya dirancang sedemikian rupa agar kasir yang belum pernah menggunakan perangkat lunak komputer sekalipun dapat mengoperasikannya secara lancar hanya dalam hitungan menit, sehingga mengurangi antrean di meja kasir secara signifikan.</p>
+                <img src="image/logo auliasoft.png" alt="Logo AuliaSoft" class="placeholder" style="margin-top: 20px;">
+            </div>
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">C. Business Domain</h2>
+                <p>AuliaSoft secara mantap beroperasi pada domain bisnis <strong>Aplikasi Kasir Modern berbasis Cloud (E-POS)</strong>. Ini bukan sekadar mesin hitung digital biasa, melainkan ekosistem bisnis menyeluruh.</p>
+                <p>Domain kami berfokus pada penyelesaian masalah klasik di sektor ritel, F&B (Food and Beverage), dan jasa. Kami menjembatani *Point of Sale* tradisional dengan komputasi awan mutakhir. Artinya, pemilik bisnis dapat memonitor pergerakan transaksi, margin keuntungan, dan perputaran inventaris dari lokasi mana saja, kapan saja, hanya melalui genggaman layar gawai mereka.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="audience" class="section-wrapper">
+        <div class="container grid-2">
+            <div>
+                <img src="image/hd umkm.png" alt="Target Pasar" class="placeholder">
+            </div>
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">D. Target Audience & Market</h2>
+                <p>AuliaSoft E-POS dirancang secara spesifik untuk merangkul <strong>Pemilik Usaha Retail, Minimarket, Distributor, Toko Kelontong, hingga Pelaku UMKM</strong> yang berambisi melakukan transformasi digital. Target audiens kami adalah para pengusaha yang menyadari bahwa pembukuan manual adalah sumber utama kebocoran dana dan hilangnya efisiensi waktu.</p>
+                <p>Kami hadir untuk audiens yang menginginkan transparansi penuh atas uang yang masuk dan keluar, serta data yang solid untuk mengambil keputusan bisnis yang ekspansif.</p>
+                
+                <div class="card" style="margin-top: 30px; border-left: 5px solid var(--primary); background: rgba(59, 130, 246, 0.05);">
+                    <p style="font-style: italic; font-size: 1.1rem; color: #ffffff;">"Testimoni menggunakan aplikasi Auliasoft dari tahun 2021. Pengalaman selama menggunakan aplikasi auliasoft : Aplikasi yang sangat bagus, laporan keuangan bisa tersaji dengan sangat akurat dan real time, harga bersahabat sehingga sangat efisien terutama untuk usaha yang baru berdiri, respon tim Auliasoft cepat dan baik. Sehingga sangat direkomendasikan bagi pengelola usaha"</p>
+                    <h4 style="margin-top: 15px; color: var(--primary);">— BMT KARIMA SEJATI</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section-wrapper bg-alt">
+        <div class="container">
+            <h2 class="section-title">E. Core Product Features</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">Setiap baris kode pada AuliaSoft diciptakan untuk menyelesaikan masalah nyata di lapangan. Berikut adalah pilar fitur utama yang menjadi kekuatan aplikasi kasir kami:</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h4 style="color: var(--primary);">🔐 Login & Manajemen Akses</h4>
+                    <p>Sistem otentikasi berlapis yang memungkinkan pembagian hak akses (Role-Based Access Control). Admin memiliki kuasa penuh, Manajer Gudang untuk input stok, dan Kasir hanya dibatasi pada modul transaksi penjualan untuk meminimalisir manipulasi data.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">📦 Manajemen Stok & Opname</h4>
+                    <p>Pemantauan pergerakan inventaris yang terupdate secara *real-time*. Fitur Stok Opname digital kami mengeliminasi proses penyesuaian stok fisik yang melelahkan di akhir bulan, memastikan tidak ada barang yang hilang tanpa jejak.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">🛒 Pembelian & Penjualan</h4>
+                    <p>Modul yang memisahkan antara restock barang dari supplier (Pembelian) dan arus keluar barang ke konsumen (Penjualan). Mendukung scan barcode seketika yang mempercepat waktu pelayanan di depan meja kasir hingga 300%.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">📊 Laporan Transaksi Komprehensif</h4>
+                    <p>Sistem secara otomatis meng-generate Laporan Stok, Laporan Pembelian, dan Laporan Penjualan. Pemilik bisnis dapat memfilter data berdasarkan hari, minggu, atau bulan dengan sajian tabel dan grafik yang mudah dipahami.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">💰 Laporan Keuangan Pintar</h4>
+                    <p>Tidak perlu lagi menyewa akuntan mahal. Fitur ini secara otomatis menghitung arus kas kotor, laba bersih setelah potongan modal, dan rekapitulasi shift kasir harian. Anda siap untuk audit kapan saja.</p>
+                </div>
+                <div class="card" style="display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <img src="https://placehold.co/400x300/1f1f1f/3b82f6?text=Screenshot+Fitur+Aplikasi" alt="Display Fitur" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="usecase-faq" class="section-wrapper">
+        <div class="container grid-2">
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">F. Use Case Diagram</h2>
+                <p>Diagram Use Case AuliaSoft E-POS memvisualisasikan secara jelas bagaimana interaksi antara Aktor Utama (Admin, Kasir, dan Pelanggan) dengan fungsionalitas sistem.</p>
+                <p>Alur dimulai dari <strong>Admin</strong> yang mengatur master data barang dan harga. Kemudian <strong>Kasir</strong> mengeksekusi proses transaksi penjualan di garis depan, yang secara otomatis memicu pemotongan stok di database. Terakhir, <strong>Pemilik (Owner)</strong> dapat memanggil *Use Case* pelaporan untuk mengevaluasi performa bisnis hari itu.</p>
+                <img src="image/use case.png" alt="Use Case Diagram" class="placeholder" style="margin-top: 25px;">
+            </div>
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">G. Frequently Asked Questions</h2>
+                <div class="card" style="margin-bottom: 20px; padding: 25px;">
+                    <h4 style="color: var(--primary);">Q: Apakah sistem akan mati total jika koneksi internet terputus?</h4>
+                    <p>A: AuliaSoft dirancang dengan ketahanan tinggi. Aplikasi sangat ringan sehingga koneksi internet standar (seperti *tethering* HP) sudah lebih dari cukup. Dalam kondisi *offline* mendadak, aplikasi menahan *cache* transaksi sementara dan akan otomatis menyinkronkan data ke Cloud begitu internet kembali stabil.</p>
+                </div>
+                <div class="card" style="margin-bottom: 20px; padding: 25px;">
+                    <h4 style="color: var(--primary);">Q: Bisakah aplikasi ini diakses dari luar kota oleh pemilik?</h4>
+                    <p>A: Tentu saja. Karena mengadopsi teknologi Cloud Server, *owner* dapat mengakses Dashboard Laporan Keuangan dari laptop atau *smartphone* di mana pun dan kapan pun, selama memiliki hak akses otorisasi yang valid.</p>
+                </div>
+                <div class="card" style="padding: 25px;">
+                    <h4 style="color: var(--primary);">Q: Apakah saya perlu membeli komputer server yang mahal?</h4>
+                    <p>A: Tidak perlu. Seluruh beban database dan komputasi kami tangani di server awan internal AuliaSoft. Anda cukup menyediakan PC, laptop standar (seperti spek i3 atau Ryzen series dasar), atau tablet di meja kasir Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap-custom" class="section-wrapper bg-alt">
+        <div class="container grid-2">
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">H. Product Roadmap</h2>
+                <p>Pengembangan produk kami berjalan sistematis menyesuaikan level langganan, memastikan bisnis Anda dapat tumbuh bersama sistem kami:</p>
+                <ul class="custom-list">
+                    <li><strong>Evolusi Versi Basic:</strong> Difokuskan pada penguatan fundamental kecepatan proses kasir, optimasi input database produk, dan memastikan *zero error* pada pencetakan laporan omset harian.</li>
+                    <li><strong>Evolusi Versi Standard:</strong> Membawa kapabilitas ekspansi. Kami mengaktifkan fitur manajemen multi-cabang terpusat, kontrol inventaris kompleks, dan modul penyelesaian hutang-piutang supplier.</li>
+                    <li><strong>Evolusi Versi Premium:</strong> Fase kematangan digital. Kami menanamkan algoritma analitik pintar untuk memprediksi barang laris, integrasi ekosistem *marketplace* luar, dan sinkronisasi laporan pajak otomatis.</li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="section-title" style="left: 0; transform: none; text-align: left;">I. Customization Services</h2>
+                <p>Kami sangat memahami bahwa tidak ada dua bisnis yang beroperasi dengan cara yang 100% sama. Oleh karena itu, AuliaSoft menawarkan ruang penyesuaian (<em>Customization</em>) tingkat lanjut bagi klien kami.</p>
+                <p>Layanan ini mencakup perancangan ulang desain header/footer pada nota struk agar sesuai identitas toko, modifikasi formula perhitungan diskon khusus atau program loyalitas pelanggan (member card), hingga pembukaan jalur API untuk mengintegrasikan E-POS kami dengan sistem akuntansi ERP (Enterprise Resource Planning) yang mungkin sudah lebih dulu digunakan oleh perusahaan klien.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="competitors" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">J. Competitors & Market Analysis</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">Menghadapi persaingan aplikasi POS yang ketat di Indonesia, AuliaSoft menempatkan diri sebagai penyedia solusi yang paling efisien, ekonomis, dan adaptif terhadap iklim UMKM lokal.</p>
+            <table>
+                <tr>
+                    <th>Indikator Keunggulan</th>
+                    <th>AuliaSoft E-POS</th>
+                    <th>Rata-Rata Kompetitor Industri</th>
+                </tr>
+                <tr>
+                    <td class="highlight">Efisiensi Biaya Operasional</td>
+                    <td>Sangat hemat. Mulai Rp 50.000 (Promo) dan Rp 149.999 (Basic).</td>
+                    <td>Membebani modal awal, mayoritas di atas Rp 200.000 hingga Rp 500.000 per bulan.</td>
+                </tr>
+                <tr>
+                    <td class="highlight">Fleksibilitas Kustomisasi</td>
+                    <td>Bebas melakukan request modifikasi alur sistem agar fit dengan SOP Klien.</td>
+                    <td>Sistem tertutup (Rigid System) yang memaksa klien mengikuti alur baku pabrikan.</td>
+                </tr>
+                <tr>
+                    <td class="highlight">Layanan Purna Jual & Support</td>
+                    <td>Dukungan teknis responsif dan kekeluargaan langsung melalui kanal WhatsApp.</td>
+                    <td>Harus melewati birokrasi *Email Ticketing* yang memakan waktu minimal 1-2 hari kerja.</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="complementary" class="section-wrapper bg-alt">
+        <div class="container">
+            <h2 class="section-title">K. Complementary Hardware Products</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">Untuk menyempurnakan ekosistem perangkat lunak AuliaSoft, kami juga menyediakan lini produk pelengkap berupa perangkat keras berstandar industri untuk memfasilitasi transaksi fisik di toko Anda.</p>
+            
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <img src="image/58mm.jpg" alt="Printer Thermal" class="placeholder" style="margin-bottom: 20px;">
+                    <h4 style="color: #ffffff;">Printer Thermal Bluetooth 58mm</h4>
+                    <p style="font-size: 0.95rem;">Perangkat cetak struk tanpa tinta yang sangat praktis. Koneksi nirkabel Bluetooth meminimalisir kabel berantakan di meja kasir. Cetakan super cepat dan jelas.</p>
+                    <div style="font-size: 1.4rem; font-weight: bold; color: var(--primary); margin-top: 15px;">Rp 350.000</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="image/1d.jpg" alt="Scanner Barcode" class="placeholder" style="margin-bottom: 20px;">
+                    <h4 style="color: #ffffff;">Laser Barcode Scanner 1D/2D</h4>
+                    <p style="font-size: 0.95rem;">Sensor laser presisi tinggi untuk membaca kode batang produk secara instan. Menghindari kesalahan ketik manual (human error) saat input ribuan item barang.</p>
+                    <div style="font-size: 1.4rem; font-weight: bold; color: var(--primary); margin-top: 15px;">Rp 250.000</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="image/drawer.jpg" alt="Laci Kasir" class="placeholder" style="margin-bottom: 20px;">
+                    <h4 style="color: #ffffff;">Automated Cash Drawer</h4>
+                    <p style="font-size: 0.95rem;">Laci kasir berbahan metal solid yang terhubung langsung dengan sistem printer. Otomatis terbuka (pop-up) hanya saat struk transaksi berhasil dicetak oleh kasir.</p>
+                    <div style="font-size: 1.4rem; font-weight: bold; color: var(--primary); margin-top: 15px;">Rp 450.000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="policies" class="section-wrapper">
+        <div class="container grid-3">
+            <div class="card">
+                <h4 style="color: var(--primary); font-size: 1.3rem;">⚙️ Proses Testing Internal</h4>
+                <p>Kami tidak merilis sistem setengah matang. Setiap modul AuliaSoft E-POS telah melalui fase *Quality Assurance* (QA) berlapis, termasuk *Load Testing* dan *User Acceptance Testing* untuk menjamin akurasi kalkulasi matematika transaksi sebesar 100% tanpa adanya celah *bug*.</p>
+            </div>
+            <div class="card">
+                <h4 style="color: var(--primary); font-size: 1.3rem;">📝 Alur Proses Order</h4>
+                <p>Proses *onboarding* yang ringkas: Anda berkonsultasi mengenai kebutuhan paket > Melakukan transfer konfirmasi ke rekening resmi <strong>BRI 789001005408534 (a.n Aulia Soft)</strong> > Kami memproses setup database > Akun kasir siap digunakan hari itu juga lengkap dengan panduan awal.</p>
+            </div>
+            <div class="card">
+                <h4 style="color: var(--primary); font-size: 1.3rem;">📜 Kebijakan Data Privasi</h4>
+                <p>Integritas data Anda adalah harga mati. Kami menerapkan *Strict Data Policy* di mana segala bentuk rekam jejak finansial, daftar pelanggan, dan rahasia dagang klien dienkripsi secara penuh di Cloud. Pihak AuliaSoft tidak memiliki hak atau akses untuk mendistribusikan data tersebut ke pihak ketiga.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #000000; border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 40px 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 10px;">AuliaSoft E-POS System</h3>
+        <p style="margin-bottom: 0;">&copy; 2026 E-Marketing Project | Dikembangkan khusus untuk solusi bisnis digital Indonesia.</p>
+    </footer>
+
+    <a href="https://wa.me/6281241945881" class="wa-btn" target="_blank" title="Konsultasi via WhatsApp">✆</a>
+
+</body>
+</html>
